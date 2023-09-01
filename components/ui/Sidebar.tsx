@@ -3,20 +3,25 @@ import {
   Box,
   Divider,
   Drawer,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   Typography
 } from '@mui/material'
 import InboxOutlinedIcon from '@mui/icons-material/InboxOutlined'
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import { useTheme } from '@mui/material/styles'
 import { UiContext } from '../../context/ui'
 
 const menuItems: string[] = ['Inbox', 'Starred', 'Send Email', 'Drafts']
 
 export function Sidebar() {
+  const theme = useTheme()
   const { isSideMenuOpen, closeSideMenu } = useContext(UiContext)
 
   return (
@@ -25,10 +30,14 @@ export function Sidebar() {
       open={isSideMenuOpen}
       onClose={closeSideMenu}
     >
-      <Box sx={{ width: 250 }}>
-        <Box sx={{ padding: '5px 10px' }}>
+      <Box sx={{ padding: '5px 10px' }}>
+        <Stack sx={{ width: 240 }} direction='row' justifyContent='space-between' useFlexGap>
           <Typography variant='h4'>Menu</Typography>
-        </Box>
+
+          <IconButton onClick={closeSideMenu}>
+            {theme.direction === 'ltr' && <ChevronLeftIcon />}
+          </IconButton>
+        </Stack>
 
         <List>
           {

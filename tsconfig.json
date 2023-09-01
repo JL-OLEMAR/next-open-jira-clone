@@ -17,7 +17,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "paths": {}
+    "paths": {
+      "@interfaces/*": [
+        "./interfaces/"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",

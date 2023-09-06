@@ -1,5 +1,6 @@
-import { Card, CardContent, CardHeader, Grid } from '@mui/material'
+import { Card, CardHeader, Grid } from '@mui/material'
 import { Layout } from '../components/layouts'
+import { EntryList } from '../components/ui'
 
 export default function Home() {
   return (
@@ -8,23 +9,22 @@ export default function Home() {
         <Grid item xs={12} sm={4}>
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='TODO' />
-
-            <CardContent>
-              {/* Add a new entry */}
-              {/* List of entries */}
-            </CardContent>
+            {/* Add a new entry */}
+            <EntryList status='todo' />
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={4}>
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
-            <CardHeader title='IN PROGESS' />
+            <CardHeader title='IN PROGRESS' />
+            <EntryList status='in-progress' />
           </Card>
         </Grid>
 
         <Grid item xs={12} sm={4}>
           <Card sx={{ height: 'calc(100vh - 100px)' }}>
             <CardHeader title='DONE' />
+            <EntryList status='done' />
           </Card>
         </Grid>
       </Grid>

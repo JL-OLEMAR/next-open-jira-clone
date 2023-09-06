@@ -25,7 +25,7 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
     },
     {
       _id: uuidv4(),
-      description: 'Todo de pago 3',
+      description: 'To do de pago 3',
       status: 'done',
       createdAt: Date.now() - 100_000
     }

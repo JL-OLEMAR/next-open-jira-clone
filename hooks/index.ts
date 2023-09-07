@@ -1,0 +1,1 @@
+export { useEntry } from './useEntry'

@@ -1,7 +1,7 @@
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import { List, Paper } from '@mui/material'
 
-import { EntriesContext } from '../../context'
+import { useEntry } from '../../hooks'
 import { EntryCard } from './entry-card'
 import { EntryStatus } from '../../interfaces'
 
@@ -10,7 +10,7 @@ interface EntryListProps {
 }
 
 export function EntryList({ status }: EntryListProps) {
-  const { entries } = useContext(EntriesContext)
+  const { entries } = useEntry()
 
   const entriesByStatus = useMemo(() => entries.filter(
     (entry) => entry.status === status

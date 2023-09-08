@@ -2,11 +2,19 @@ import { useContext } from 'react'
 import { UiContext } from '../context'
 
 export function useUi() {
-  const { closeSideMenu, isSideMenuOpen, openSideMenu } = useContext(UiContext)
+  const {
+    isSideMenuOpen,
+    isAddingEntry,
+    closeSideMenu,
+    openSideMenu,
+    setIsAddingEntry
+  } = useContext(UiContext)
 
   return {
-    closeSideMenu,
     isSideMenuOpen,
-    openSideMenu
+    isAddingEntry,
+    closeSideMenu,
+    openSideMenu,
+    setIsAddingEntry
   }
 }

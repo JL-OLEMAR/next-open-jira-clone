@@ -4,13 +4,13 @@ import { type ChangeEvent, useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import AddIcon from '@mui/icons-material/AddCircleOutlineOutlined'
-import { useEntry } from '../../hooks'
+import { useEntry, useUi } from '../../hooks'
 
 export function NewEntry() {
-  const [isAdding, setIsAdding] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [isTouched, setIsTouched] = useState(false)
   const { addNewEntry } = useEntry()
+  const { isAddingEntry, setIsAddingEntry } = useUi()
 
   const onTextFieldChanged = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setInputValue(e.target.value)
@@ -23,7 +23,7 @@ export function NewEntry() {
     addNewEntry(inputValue)
 
     // reset
-    setIsAdding(false)
+    setIsAddingEntry(false)
     setIsTouched(false)
     setInputValue('')
   }
@@ -31,7 +31,7 @@ export function NewEntry() {
   return (
     <Box sx={{ marginBottom: 2, paddingX: 2 }}>
       {
-        isAdding
+        isAddingEntry
           ? (
             <>
               <TextField
@@ -50,7 +50,7 @@ export function NewEntry() {
 
               <Box display='flex' justifyContent='space-between'>
                 <Button
-                  onClick={() => setIsAdding(false)}
+                  onClick={() => setIsAddingEntry(false)}
                   variant='outlined'
                 >
                   Cancel
@@ -69,7 +69,7 @@ export function NewEntry() {
           )
           : (
             <Button
-              onClick={() => setIsAdding(true)}
+              onClick={() => setIsAddingEntry(true)}
               startIcon={<AddIcon />}
               fullWidth
               variant='outlined'

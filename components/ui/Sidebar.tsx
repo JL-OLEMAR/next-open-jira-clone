@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import {
   Box,
   Divider,
@@ -16,13 +15,13 @@ import InboxOutlinedIcon from '@mui/icons-material/InboxOutlined'
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { useTheme } from '@mui/material/styles'
-import { UiContext } from '../../context/ui'
+import { useUi } from '../../hooks'
 
 const menuItems: string[] = ['Inbox', 'Starred', 'Send Email', 'Drafts']
 
 export function Sidebar() {
   const theme = useTheme()
-  const { isSideMenuOpen, closeSideMenu } = useContext(UiContext)
+  const { isSideMenuOpen, closeSideMenu } = useUi()
 
   return (
     <Drawer

@@ -2,19 +2,11 @@ import { useContext } from 'react'
 import { UiContext } from '../context'
 
 export function useUi() {
-  const {
-    isSideMenuOpen,
-    isAddingEntry,
-    closeSideMenu,
-    openSideMenu,
-    setIsAddingEntry
-  } = useContext(UiContext)
+  const uiContext = useContext(UiContext)
 
-  return {
-    isSideMenuOpen,
-    isAddingEntry,
-    closeSideMenu,
-    openSideMenu,
-    setIsAddingEntry
+  if (uiContext == null && uiContext === undefined) {
+    throw new Error('useUi must be used within an UiProvider')
   }
+
+  return uiContext
 }

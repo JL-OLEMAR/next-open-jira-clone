@@ -2,10 +2,11 @@ import { useContext } from 'react'
 import { EntriesContext } from '../context'
 
 export function useEntry() {
-  const { entries, addNewEntry } = useContext(EntriesContext)
+  const entryContext = useContext(EntriesContext)
 
-  return {
-    entries,
-    addNewEntry
+  if (entryContext == null && entryContext === undefined) {
+    throw new Error('useEntry must be used within an EntryProvider')
   }
+
+  return entryContext
 }

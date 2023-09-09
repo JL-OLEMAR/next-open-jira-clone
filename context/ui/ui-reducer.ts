@@ -3,7 +3,9 @@ import { UiState } from './ui-provider'
 type UiActionType =
   | { type: '[UI] - Open Sidebar' }
   | { type: '[UI] - Close Sidebar' }
-  | { type: '[UI] - Set isAddingEntry', payload: boolean }
+  | { type: '[UI] - ToggleAddingEntry', payload: boolean }
+  | { type: '[UI] - Start Dragging' }
+  | { type: '[UI] - End Dragging' }
 
 export function uiReducer(state: UiState, action: UiActionType): UiState {
   switch (action.type) {
@@ -19,10 +21,22 @@ export function uiReducer(state: UiState, action: UiActionType): UiState {
         isSideMenuOpen: false
       }
 
-    case '[UI] - Set isAddingEntry':
+    case '[UI] - ToggleAddingEntry':
       return {
         ...state,
         isAddingEntry: action.payload
+      }
+
+    case '[UI] - Start Dragging':
+      return {
+        ...state,
+        isDragging: true
+      }
+
+    case '[UI] - End Dragging':
+      return {
+        ...state,
+        isDragging: false
       }
 
     default:

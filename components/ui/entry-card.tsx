@@ -1,5 +1,5 @@
 import { type DragEvent } from 'react'
-import { Card, CardActionArea, CardContent, Typography } from '@mui/material'
+import { Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material'
 
 import { useUi } from '../../hooks'
 import { type Entry } from '../../interfaces'
@@ -37,9 +37,9 @@ export function EntryCard({ entry }: EntryCardProps) {
           </Typography>
         </CardContent>
 
-        <CardContent sx={{ display: 'flex', justifyContent: 'end', paddingRight: 2 }}>
+        <CardActions sx={{ display: 'flex', justifyContent: 'end', paddingRight: 2 }}>
           <Typography variant='body2'>30 minutes ago</Typography>
-        </CardContent>
+        </CardActions>
       </CardActionArea>
     </Card>
   )

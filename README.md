@@ -6,10 +6,6 @@ To run locally, you need the database
 docker-compose up -d
 ```
 
-The -d, means **detached**
+The -d, means **detached**.
 
-MongoDB Local URL:
-
-```bash
-mongodb://localhost:27017/entriesdb
-```
+MongoDB Local URL ⚓: `mongodb://localhost:27017/entriesdb`

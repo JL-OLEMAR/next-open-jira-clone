@@ -14,7 +14,7 @@ const mongooseConnection = {
 
 export const connect = async () => {
   if (mongooseConnection.isConnected) {
-    console.log('=> using existing database connection')
+    console.log('=> ✅ using an existing database connection')
     return
   }
 
@@ -23,7 +23,7 @@ export const connect = async () => {
     mongooseConnection.isConnected = mongoose.connections[0].readyState
 
     if (mongooseConnection.isConnected === 1) {
-      console.log('=> using connection from previous call')
+      console.log('=> ✅ using previous connection')
       return
     }
 
@@ -33,12 +33,12 @@ export const connect = async () => {
 
   await mongoose.connect(process.env.MONGO_SRV ?? '')
   mongooseConnection.isConnected = 1
-  console.log('=> connected to MongoDB', 'url')
+  console.log('=> 🚀 connected to MongoDB', process.env.MONGO_SRV)
 }
 
 export const disconnect = async () => {
-  if (mongooseConnection.isConnected !== 0) return
+  if (mongooseConnection.isConnected === 0) return
 
   await mongoose.disconnect()
-  console.log('=> disconnected from MongoDB')
+  console.log('=> ❌ disconnected from MongoDB')
 }

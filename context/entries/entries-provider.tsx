@@ -1,6 +1,4 @@
 import { type ReactNode, useReducer, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-
 import { entriesApi } from '../../endpoints'
 import { type Entry } from '@interfaces/'
 import { EntriesContext } from './entries-context'
@@ -21,17 +19,14 @@ export function EntriesProvider({ children }: { children: ReactNode }) {
     void getEntries()
   }, [])
 
-  const addNewEntry = (description: string) => {
-    const newEntry: Entry = {
-      _id: uuidv4(),
-      description,
-      createdAt: Date.now(),
-      status: 'todo'
-    }
+  const addNewEntry = async (description: string) => {
+    const { data } = await entriesApi.post<Entry>('/entries', {
+      description
+    })
 
     dispatch({
       type: '[ENTRIES] - Add-Entry',
-      payload: newEntry
+      payload: data
     })
   }
 

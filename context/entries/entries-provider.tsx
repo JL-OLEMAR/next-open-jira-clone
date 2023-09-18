@@ -10,26 +10,7 @@ export interface EntriesState {
 }
 
 const ENTRIES_INITIAL_STATE: EntriesState = {
-  entries: [
-    {
-      _id: uuidv4(),
-      description: 'Pendiente: de pago 1',
-      status: 'todo',
-      createdAt: Date.now()
-    },
-    {
-      _id: uuidv4(),
-      description: 'In progress: de pago 2',
-      status: 'in-progress',
-      createdAt: Date.now() - 1_000_000
-    },
-    {
-      _id: uuidv4(),
-      description: 'To do: de pago 3',
-      status: 'done',
-      createdAt: Date.now() - 100_000
-    }
-  ]
+  entries: []
 }
 
 export function EntriesProvider({ children }: { children: ReactNode }) {

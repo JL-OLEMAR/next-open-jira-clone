@@ -11,3 +11,7 @@ docker-compose up -d
 ## Setting environment variables
 
 Rename file **.env.example** to **.env.local**
+
+## Filling the db with test information
+
+Temporary endpoint: `http://localhost:3000/api/seed`

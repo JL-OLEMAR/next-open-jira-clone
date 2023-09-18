@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { db } from '../../database'
+import { db, seedData } from '../../database'
+import { Entry } from '../../models'
 
 interface Data {
   message: string
@@ -13,6 +14,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   await db.connect()
+
+  // Temp dev
+  if (process.env.NODE_ENV === 'development') {
+    await Entry.deleteMany() // for dev
+    await Entry.insertMany(seedData.entries)
+  }
+
   await db.disconnect()
 
   res.status(200).json({

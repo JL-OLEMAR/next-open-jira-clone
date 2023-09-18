@@ -14,7 +14,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@interfaces/*": ["./interfaces/"]
+      "@interfaces/*": ["./interfaces/"],
+      "@db*": ["./database/"],
+      "@models*": ["./models/"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

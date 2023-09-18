@@ -1,9 +1,10 @@
-import { ReactNode, useReducer } from 'react'
+import { type ReactNode, useReducer, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+import { entriesApi } from '../../endpoints'
+import { type Entry } from '@interfaces/'
 import { EntriesContext } from './entries-context'
 import { entriesReducer } from './entries-reducer'
-import { type Entry } from '@interfaces/'
 
 export interface EntriesState {
   entries: Entry[]
@@ -16,6 +17,10 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 export function EntriesProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE)
 
+  useEffect(() => {
+    void getEntries()
+  }, [])
+
   const addNewEntry = (description: string) => {
     const newEntry: Entry = {
       _id: uuidv4(),
@@ -27,6 +32,14 @@ export function EntriesProvider({ children }: { children: ReactNode }) {
     dispatch({
       type: '[ENTRIES] - Add-Entry',
       payload: newEntry
+    })
+  }
+
+  const getEntries = async () => {
+    const { data } = await entriesApi.get<Entry[]>('/entries')
+    dispatch({
+      type: '[ENTRIES] - Get-Entries',
+      payload: data
     })
   }
 

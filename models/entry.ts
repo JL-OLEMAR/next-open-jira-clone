@@ -11,7 +11,8 @@ const entrySchema = new Schema({
     enum: {
       values: ['todo', 'in-progress', 'done'],
       message: '{VALUE} is not supported'
-    }
+    },
+    default: 'todo'
   }
 })
 

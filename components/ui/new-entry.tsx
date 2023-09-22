@@ -17,10 +17,10 @@ export function NewEntry() {
     setIsTouched(true)
   }
 
-  const handleTaskSave = () => {
+  const handleTaskSave = async () => {
     if (inputValue.length === 0) return
 
-    addNewEntry(inputValue)
+    await addNewEntry(inputValue)
 
     // reset
     setIsAddingEntry(false)
@@ -57,7 +57,7 @@ export function NewEntry() {
                 </Button>
 
                 <Button
-                  onClick={handleTaskSave}
+                  onClick={() => { void handleTaskSave() }}
                   variant='outlined'
                   color='secondary'
                   endIcon={<SaveOutlinedIcon />}

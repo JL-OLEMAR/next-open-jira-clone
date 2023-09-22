@@ -5,7 +5,7 @@ import { createContext } from 'react'
 interface ContextProps {
   entries: Entry[]
   addNewEntry: (description: string) => Promise<void>
-  updatedEntry: (entry: Entry) => void
+  updatedEntry: (entry: Entry) => Promise<void>
 }
 
 export const EntriesContext = createContext({} as ContextProps)

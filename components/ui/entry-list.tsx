@@ -23,20 +23,20 @@ export function EntryList({ status }: EntryListProps) {
   }
 
   // Here drop the drag on the father EntryList. 👀 This on a div
-  const onDropEntry = (evt: DragEvent<HTMLDivElement>) => {
+  const onDropEntry = async (evt: DragEvent<HTMLDivElement>) => {
     const id = evt.dataTransfer.getData('text/plain')
     const entry = entries.find(e => e._id === id)
 
-    if (entry != null && entry !== undefined) {
+    if (entry) {
       entry.status = status // mutate the status
-      updatedEntry(entry) // update the entry of the state
+      await updatedEntry(entry) // update the entry of the state
       endDragging()
     }
   }
 
   return (
     <div
-      onDrop={onDropEntry}
+      onDrop={(evt) => { void onDropEntry(evt) }}
       onDragOver={allowDrop}
       className={isDragging ? styles.dragging : ''}
     >

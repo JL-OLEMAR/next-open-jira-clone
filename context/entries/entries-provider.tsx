@@ -38,11 +38,16 @@ export function EntriesProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  const updatedEntry = (entry: Entry) => {
-    dispatch({
-      type: '[ENTRIES] - Entry-Updated',
-      payload: entry
-    })
+  const updatedEntry = async ({ _id, description: desc, status }: Entry) => {
+    try {
+      const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, { desc, status })
+      dispatch({
+        type: '[ENTRIES] - Entry-Updated',
+        payload: data
+      })
+    } catch (error) {
+      console.log({ error })
+    }
   }
 
   return (

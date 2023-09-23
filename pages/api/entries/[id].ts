@@ -17,12 +17,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
 
   switch (req.method) {
+    case 'GET':
+      return await getEntry(req, res)
+
     case 'PUT':
       return await updateEntry(req, res)
 
     default:
       return res.status(400).json({ message: 'Bad request' })
   }
+}
+
+const getEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  const { id } = req.query
+  await db.connect()
+  const entry = await Entry.findById(id)
+  await db.disconnect()
+
+  if (!entry) return res.status(404).json({ message: `Entry not found with id ${id}` })
+
+  return res.status(200).json(entry)
 }
 
 const updateEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {

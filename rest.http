@@ -1,0 +1,29 @@
+@hostname = http://localhost:3000/api
+@contentType = application/json
+
+
+### Add seed for db dev
+GET {{hostname}}/seed
+
+### GetEntries
+GET {{hostname}}/entries
+
+### AddEntry
+POST {{hostname}}/entries
+content-type: {{contentType}}
+
+{
+    "description": "Hi from Perú"
+}
+
+### UpdateEntrybyId
+@entryId = 650e7c628b880abb793c2a97
+PUT {{hostname}}/entries/{{entryId}}
+content-type: {{contentType}}
+
+{
+    "description": "Hi from Perú - Lima"
+}
+
+### GetEntryById
+GET {{hostname}}/entries/{{entryId}}

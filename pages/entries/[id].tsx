@@ -1,4 +1,5 @@
 import { type ChangeEvent, useState, useMemo } from 'react'
+import type { GetServerSideProps } from 'next'
 import {
   Button,
   capitalize,
@@ -18,15 +19,18 @@ import {
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 
+import { dbEntries } from '../../database'
+import { useEntry } from '../../hooks'
 import { Layout } from '../../components/layouts'
-import { EntryStatus } from '../../interfaces'
+import { Entry, EntryStatus } from '../../interfaces'
 
 const validStatus: EntryStatus[] = ['todo', 'in-progress', 'done']
 
-export default function EntryPage() {
-  const [inputValue, setInputValue] = useState('')
-  const [status, setStatus] = useState<EntryStatus>('todo')
+export default function EntryPage({ entry }: { entry: Entry }) {
+  const [inputValue, setInputValue] = useState(entry.description)
+  const [status, setStatus] = useState<EntryStatus>(entry.status)
   const [isTouched, setIsTouched] = useState(false)
+  const { updatedEntry } = useEntry()
 
   const isNotValidStatus = useMemo(
     () => inputValue.length <= 0 && isTouched,
@@ -41,12 +45,18 @@ export default function EntryPage() {
     setStatus(e.target.value as EntryStatus)
   }
 
-  const onSaveEntry = () => {
-    console.log({ inputValue }, { status })
+  const onSaveEntry = async () => {
+    if (inputValue.trim().length === 0) return
+
+    await updatedEntry({
+      ...entry,
+      description: inputValue,
+      status
+    })
   }
 
   return (
-    <Layout title='Edit Entry'>
+    <Layout title={`${entry.description.substring(0, 20)}...`}>
       <Grid
         container
         justifyContent='center'
@@ -55,7 +65,7 @@ export default function EntryPage() {
         <Grid item xs={12} sm={8} md={6}>
           <Card>
             <CardHeader
-              title={`Entry: ${inputValue}`}
+              title='Entry:'
               subheader='Created 30 minutes ago'
             />
 
@@ -104,7 +114,7 @@ export default function EntryPage() {
                 variant='contained'
                 fullWidth
                 type='button'
-                onClick={onSaveEntry}
+                onClick={() => { void onSaveEntry() }}
                 disabled={inputValue.length <= 0}
               >
                 Save
@@ -126,4 +136,27 @@ export default function EntryPage() {
 
     </Layout>
   )
+}
+
+// You should use getServerSideProps when:
+// - Only if you need to pre-render a page whose data must be fetched at request time
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id } = params as { id: string }
+
+  const entry = await dbEntries.getEntryById(id)
+
+  if (!entry) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false // Exist but not permanent
+      }
+    }
+  }
+
+  return {
+    props: {
+      entry
+    }
+  }
 }

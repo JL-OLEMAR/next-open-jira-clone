@@ -38,9 +38,12 @@ export function EntriesProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  const updatedEntry = async ({ _id, description: desc, status }: Entry) => {
+  const updatedEntry = async ({ _id, description, status }: Entry) => {
     try {
-      const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, { desc, status })
+      const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, {
+        description,
+        status
+      })
       dispatch({
         type: '[ENTRIES] - Entry-Updated',
         payload: data

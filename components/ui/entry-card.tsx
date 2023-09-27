@@ -2,7 +2,7 @@ import { type DragEvent } from 'react'
 import { useRouter } from 'next/router'
 import { Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material'
 
-import { useUi } from '../../hooks'
+import { useTimeAgo, useUi } from '../../hooks'
 import { type Entry } from '../../interfaces'
 
 interface EntryCardProps {
@@ -12,6 +12,7 @@ interface EntryCardProps {
 export function EntryCard({ entry }: EntryCardProps) {
   const router = useRouter()
   const { startDragging, endDragging } = useUi()
+  const { timeAgo } = useTimeAgo(entry.createdAt)
 
   // Here start the drag on children EntryCard
   const onDragStart = (evt: DragEvent<HTMLDivElement>) => {
@@ -45,7 +46,7 @@ export function EntryCard({ entry }: EntryCardProps) {
         </CardContent>
 
         <CardActions sx={{ display: 'flex', justifyContent: 'end', paddingRight: 2 }}>
-          <Typography variant='body2'>30 minutes ago</Typography>
+          <Typography variant='body2'>{timeAgo}</Typography>
         </CardActions>
       </CardActionArea>
     </Card>

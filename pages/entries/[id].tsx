@@ -20,7 +20,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 
 import { dbEntries } from '../../database'
-import { useEntry } from '../../hooks'
+import { useEntry, useTimeAgo } from '../../hooks'
 import { Layout } from '../../components/layouts'
 import { Entry, EntryStatus } from '../../interfaces'
 
@@ -30,6 +30,8 @@ export default function EntryPage({ entry }: { entry: Entry }) {
   const [inputValue, setInputValue] = useState(entry.description)
   const [status, setStatus] = useState<EntryStatus>(entry.status)
   const [isTouched, setIsTouched] = useState(false)
+
+  const { timeAgo } = useTimeAgo(entry.createdAt)
   const { updatedEntry } = useEntry()
 
   const isNotValidStatus = useMemo(
@@ -66,7 +68,7 @@ export default function EntryPage({ entry }: { entry: Entry }) {
           <Card>
             <CardHeader
               title='Entry:'
-              subheader='Created 30 minutes ago'
+              subheader={`Created ${timeAgo}`}
             />
 
             <CardContent>

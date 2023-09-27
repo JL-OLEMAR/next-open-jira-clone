@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
 import { useUi } from '../../hooks'
@@ -17,7 +18,9 @@ export function Navbar() {
           <MenuOutlinedIcon />
         </IconButton>
 
-        <Typography variant='h6'>OpenJira</Typography>
+        <Link href='/' style={{ textDecoration: 'none', cursor: 'pointer' }}>
+          <Typography color='#fff' variant='h6'>OpenJira</Typography>
+        </Link>
       </Toolbar>
     </AppBar>
   )

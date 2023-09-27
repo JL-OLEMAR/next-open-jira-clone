@@ -1,4 +1,5 @@
 import { type DragEvent } from 'react'
+import { useRouter } from 'next/router'
 import { Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material'
 
 import { useUi } from '../../hooks'
@@ -9,6 +10,7 @@ interface EntryCardProps {
 }
 
 export function EntryCard({ entry }: EntryCardProps) {
+  const router = useRouter()
   const { startDragging, endDragging } = useUi()
 
   // Here start the drag on children EntryCard
@@ -23,8 +25,13 @@ export function EntryCard({ entry }: EntryCardProps) {
     endDragging()
   }
 
+  const onClick = () => {
+    void router.push(`/entries/${entry._id}`)
+  }
+
   return (
     <Card
+      onClick={onClick}
       sx={{ marginBottom: 1 }}
       draggable
       onDragStart={onDragStart}

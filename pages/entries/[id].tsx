@@ -52,7 +52,7 @@ export default function EntryPage({ entry }: { entry: Entry }) {
       ...entry,
       description: inputValue,
       status
-    })
+    }, true)
   }
 
   return (
